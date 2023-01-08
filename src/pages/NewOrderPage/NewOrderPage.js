@@ -1,29 +1,79 @@
 import { useState, useEffect, useRef } from 'react';
+import * as itemsAPI from '../../utilities/items-api';
+import * as ordersAPI from '../../utilities/order-api';
+import styles from './NewOrderPage.module.scss';
 import { Link, useNavigate } from 'react-router-dom';
+import Logo from '../../components/Logo/Logo';
+import MenuList from '../../components/MenuList/MenuList';
+import CategoryList from '../../components/CategoryList/CategoryList';
+import OrderDetail from '../../components/OrderDetail/OrderDetail';
+import UserLogOut from '../../components/UserLogOut/UserLogOut';
 
+export default function NewOrderPage({ user, setUser }) {
+  const [menuItems, setMenuItems] = useState([]);
+  const [activeCat, setActiveCat] = useState('');
+  const [cart, setCart] = useState(null);
+  const categoriesRef = useRef([]);
+  const navigate = useNavigate();
 
-export default function NewOrderPage(props){
-  const { coffees } = props
-  return(
-    <main>
-      <h1>Coffees</h1>
-        <a href="https://www.starbucks.com/menu/product/409/hot" target="_blank"><img class="starbucks-link" src="https://upload.wikimedia.org/wikipedia/commons/c/c8/Cappuccino_at_Sightglass_Coffee.jpg"></img></a>
-        <a href="https://www.starbucks.com/menu/product/410/hot" target="_blank"><img class="starbucks-link" src="https://globalassets.starbucks.com/assets/ec519dd5642c41629194192cce582135.jpg?impolicy=1by1_wide_topcrop_630s"></img></a>
-        <div class="flex-container">
-              {
-                        coffees.map((coffee) => {
-                          const { name, color, _id, Image } = coffee
-                          return (
-                            <div key={_id}>
-                              <a href={`/coffees/${_id}`}>
-                              </a> 
-                              <p>{name}</p>
-                              <br />
-                            </div>
-                          )
-                        })
-                    } 
-              </div>    
+  useEffect(function() {
+    async function getItems() {
+      const items = await itemsAPI.getAll();
+      categoriesRef.current = items.reduce((cats, item) => {
+        const cat = item.category.name;
+        return cats.includes(cat) ? cats : [...cats, cat];
+      }, []);
+      setMenuItems(items);
+      setActiveCat(categoriesRef.current[0]);
+    }
+    getItems();
+    async function getCart() {
+      const cart = await ordersAPI.getCart();
+      setCart(cart);
+    }
+    getCart();
+  }, []);
+  // Providing an empty 'dependency array'
+  // results in the effect running after
+  // the FIRST render only
+
+  /*-- Event Handlers --*/
+  async function handleAddToOrder(itemId) {
+    const updatedCart = await ordersAPI.addItemToCart(itemId);
+    setCart(updatedCart);
+  }
+
+  async function handleChangeQty(itemId, newQty) {
+    const updatedCart = await ordersAPI.setItemQtyInCart(itemId, newQty);
+    setCart(updatedCart);
+  }
+
+  async function handleCheckout() {
+    await ordersAPI.checkout();
+    navigate('/orders');
+  }
+
+  return (
+    <main className={styles.NewOrderPage}>
+      <aside>
+        <Logo />
+        <CategoryList
+          categories={categoriesRef.current}
+          cart={setCart}
+          setActiveCat={setActiveCat}
+        />
+        <Link to="/orders" className="button btn-sm">PREVIOUS ORDERS</Link>
+        <UserLogOut user={user} setUser={setUser} />
+      </aside>
+      <MenuList
+        menuItems={menuItems.filter(item => item.category.name === activeCat)}
+        handleAddToOrder={handleAddToOrder}
+      />
+      <OrderDetail
+        order={cart}
+        handleChangeQty={handleChangeQty}
+        handleCheckout={handleCheckout}
+      />
     </main>
-)
+  );
 }

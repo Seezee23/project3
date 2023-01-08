@@ -1,6 +1,6 @@
 const {Schema, model} = require('mongoose')
 
-const coffeeSchema = new Schema({
+const drinkSchema = new Schema({
     name: String,
     readyToDrink: Boolean,
     color: String
@@ -8,6 +8,6 @@ const coffeeSchema = new Schema({
     timestamps:true
 })
 
-const Coffee = model('Coffee', coffeeSchema)
+const Drink = model('Drink', drinkSchema)
 
-module.exports = Coffee
+module.exports = Drink

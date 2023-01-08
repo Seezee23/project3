@@ -1,28 +1,28 @@
-const Coffee = require('../../models/coffee')
+const Drink = require('../../models/drink')
 
 const dataController = {
   // Index,
   index (req, res, next) {
-    Coffee.find({ }, (err, foundCoffees) => {
+    Drink.find({ }, (err, foundDrinks) => {
       if (err) {
         res.status(400).send({
           msg: err.message
         })
       } else {
-        res.locals.data.coffees = foundCoffees
+        res.locals.data.drinks = foundDrinks
         next()
       }
     })
   },
   // Destroy
   destroy (req, res, next) {
-    Coffee.findByIdAndDelete(req.params.id, (err, deletedCoffee) => {
+    Drink.findByIdAndDelete(req.params.id, (err, deletedDrink) => {
       if (err) {
         res.status(400).send({
           msg: err.message
         })
       } else {
-        res.locals.data.coffee = deletedCoffee
+        res.locals.data.drink = deletedDrink
         next()
       }
     })
@@ -30,13 +30,13 @@ const dataController = {
   // Update
   update (req, res, next) {
     req.body.readyToDrink = req.body.readyToDrink === 'on'
-    Coffee.findByIdAndUpdate(req.params.id, req.body, { new: true }, (err, updatedCoffee) => {
+    Drink.findByIdAndUpdate(req.params.id, req.body, { new: true }, (err, updatedDrink) => {
       if (err) {
         res.status(400).send({
           msg: err.message
         })
       } else {
-        res.locals.data.coffee = updatedCoffee
+        res.locals.data.drink = updatedDrink
         next()
       }
     })
@@ -44,13 +44,13 @@ const dataController = {
   // Create
   create (req, res, next) {
     req.body.readyToDrink = req.body.readyToDrink === 'on'
-    Coffee.create(req.body, (err, createdCoffee) => {
+    Drink.create(req.body, (err, createdDrink) => {
       if (err) {
         res.status(400).send({
           msg: err.message
         })
       } else {
-        res.locals.data.coffee = createdCoffee
+        res.locals.data.drink = createdDrink
         next()
       }
     })
@@ -58,14 +58,14 @@ const dataController = {
   // Edit
   // Show
   show (req, res, next) {
-    Coffee.findById(req.params.id, (err, foundCoffee) => {
+    Drink.findById(req.params.id, (err, foundDrink) => {
       if (err) {
         res.status(404).send({
           msg: err.message,
-          output: 'Could not find a coffee with that ID'
+          output: 'Could not find a drink with that ID'
         })
       } else {
-        res.locals.data.coffee = foundCoffee
+        res.locals.data.drink = foundDrink
         next()
       }
     })
@@ -74,10 +74,10 @@ const dataController = {
 
 const apiController = {
     index (req, res, next) {
-      res.json(res.locals.data.coffees)
+      res.json(res.locals.data.drinks)
     },
     show (req, res, next) {
-      res.json(res.locals.data.coffee)
+      res.json(res.locals.data.drink)
     }
   }
 
