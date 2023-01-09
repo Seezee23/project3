@@ -11,7 +11,6 @@ const lineItemSchema = new Schema({
 });
 
 lineItemSchema.virtual('extPrice').get(function() {
-  // 'this' is bound to the lineItem subdoc
   return this.qty * this.item.price;
 });
 
@@ -37,21 +36,15 @@ orderSchema.virtual('orderId').get(function() {
 });
 
 orderSchema.statics.getCart = function(userId) {
-  // 'this' is the Order model
   return this.findOneAndUpdate(
-    // query
     { user: userId, isPaid: false },
-    // update
     { user: userId },
-    // upsert option will create the doc if
-    // it doesn't exist
     { upsert: true, new: true }
   );
 };
 
 orderSchema.methods.addItemToCart = async function(itemId) {
   const cart = this;
-  // Check if item already in cart
   const lineItem = cart.lineItems.find(lineItem => lineItem.item._id.equals(itemId));
   if (lineItem) {
     lineItem.qty += 1;
@@ -62,20 +55,14 @@ orderSchema.methods.addItemToCart = async function(itemId) {
   return cart.save();
 };
 
-// Instance method to set an item's qty in the cart (will add item if does not exist)
 orderSchema.methods.setItemQty = function(itemId, newQty) {
-  // this keyword is bound to the cart (order doc)
   const cart = this;
-  // Find the line item in the cart for the menu item
   const lineItem = cart.lineItems.find(lineItem => lineItem.item._id.equals(itemId));
   if (lineItem && newQty <= 0) {
-    // Calling remove, removes itself from the cart.lineItems array
     lineItem.remove();
   } else if (lineItem) {
-    // Set the new qty - positive value is assured thanks to prev if
     lineItem.qty = newQty;
   }
-  // return the save() method's promise
   return cart.save();
 };
 

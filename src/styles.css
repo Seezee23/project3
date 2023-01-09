@@ -1,11 +1,11 @@
 :root {
   --white: --white;
   --tan-1: white;
-  --tan-2: #a5bfec;
-  --tan-3: #9cbae9;
-  --tan-4: #6a9dca;
+  --tan-2: #eff4fd;
+  --tan-3: #f0f3f7;
+  --tan-4: #badef6;
   --orange: #b3c9f8;
-  --text-light: #6ba4d3;
+  --text-light: black;
   --text-dark: black;
 }
 

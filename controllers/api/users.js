@@ -54,7 +54,6 @@ module.exports = {
   apiController
 }
 
-/* -- Helper Functions -- */
 
 function createJWT (user) {
   return jwt.sign(

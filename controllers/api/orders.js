@@ -8,7 +8,6 @@ module.exports = {
   history
 };
 
-// A cart is the unpaid order for a user
 async function cart(req, res) {
   try{
     const cart = await Order.getCart(req.user._id);
@@ -18,7 +17,6 @@ async function cart(req, res) {
   }
 }
 
-// Add an item to the cart
 async function addToCart(req, res) {
   try{
     const cart = await Order.getCart(req.user._id);
@@ -29,7 +27,6 @@ async function addToCart(req, res) {
   }  
 }
 
-// Updates an item's qty in the cart
 async function setItemQtyInCart(req, res) {
   try{
     const cart = await Order.getCart(req.user._id);
@@ -40,7 +37,6 @@ async function setItemQtyInCart(req, res) {
   }
 }
 
-// Update the cart's isPaid property to true
 async function checkout(req, res) {
   try{
     const cart = await Order.getCart(req.user._id);
@@ -52,7 +48,6 @@ async function checkout(req, res) {
   }  
 }
 
-// Return the logged in user's paid order history
 async function history(req, res) {
   // Sort most recent orders first
   try{
