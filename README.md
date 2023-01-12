@@ -10,8 +10,8 @@ Welcome to the Coffee Shop MERN Stack Application! This application is designed 
 
 ## Getting Started
 
-## Unsolved Problems
-Create rating and review
+## Chanlleges
+Connecting the frontend and backend
 
 ## Heroku
 https://drinks.herokuapp.com/

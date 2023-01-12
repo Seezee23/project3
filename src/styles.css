@@ -79,10 +79,10 @@ code {
 
 .form-container {
   padding: 3vmin;
-  background-color: var(--tan-1);
   border: .1vmin solid var(--tan-3);
   border-radius: 1vmin;
 }
+
 
 p.error-message {
   color: var(--orange);
@@ -94,6 +94,10 @@ form {
   grid-template-columns: 1fr 3fr;
   gap: 1.25vmin;
   color: var(--text-light);
+  padding: .6vmin .8vmin;
+  margin: 1vmin;
+  height: 20vh;
+  width: 50vh;
 }
 
 label {
@@ -149,4 +153,17 @@ button:disabled, form:invalid button[type="submit"] {
 button[type="submit"] {
   grid-column: span 2;
   margin: 1vmin 0 0;
+}
+
+h3{
+  text-align: center;
+  border: .1vmin solid var(--tan-2);
+  border-radius: .5vmin;
+  background-color: var(--orange);
+}
+
+nav{
+  padding: .6vmin .8vmin;
+  display: inline;
+  margin: 1vmin;
 }

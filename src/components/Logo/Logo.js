@@ -3,7 +3,7 @@ import styles from './Logo.module.scss';
 export default function Logo() {
 return (
   <div className={styles.Logo}>
-    <div>Drinks</div>
+    <div>Welcome</div>
     </div>
 );
 }

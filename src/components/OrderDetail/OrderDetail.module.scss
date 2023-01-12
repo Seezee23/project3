@@ -1,5 +1,5 @@
 .OrderDetail {
-    flex-direction: column;
+    flex-direction:row;
     justify-content: flex-start;
     align-items: center;
     padding: 3vmin;
@@ -21,7 +21,7 @@
   .OrderDetail .total {
     width: 100%;
     display: grid;
-    grid-template-columns: 18.35vw 5.75vw 5.25vw;
+    grid-template-columns: 19vw 5vw 5vw;
     padding: 1vmin 0;
     color: var(--text-light);
     border-top: .1vmin solid var(--tan-3);

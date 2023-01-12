@@ -1,20 +1,17 @@
 .MenuListItem {
     width: 100%;
-    display: flex;
+    display:inline-block;
     justify-content: space-between;
     align-items: center;
     margin-bottom: 3vmin;
-    padding: 2vmin;
+    padding: 5vh;
     color: var(--text-light);
     background-color: var(--white);
-    border: .1vmin solid var(--tan-3);
     border-radius: 1vmin;
     font-size: 4vmin;
   }
   
   .MenuListItem .emoji {
-    height: 8vw;
-    width: 8vw;
     font-size: 4vw;
     background-color: var(--tan-1);
     border: .1vmin solid var(--tan-3);

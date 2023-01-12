@@ -3,11 +3,10 @@
     display: grid;
     grid-template-columns: 1fr 3fr 4fr;
     grid-template-rows: 2fr;
-    border-radius: 2vmin;
   }
   
   .NewOrderPage aside {
-    display:grid;
+    display: grid;
     flex-direction: column;
     justify-content: space-between;
     align-items: center;
